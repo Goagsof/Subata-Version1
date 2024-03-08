@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Registro";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/registro.css" rel="stylesheet" />
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery UI CDN -->
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <!-- jQuery UI CSS CDN -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+</head>
+<body>
+    <div class="registro-container">
+        <h2>Registro</h2>
+
+        @using (Html.BeginForm("Registro", "Home", FormMethod.Post))
+        {
+            <div>
+                <label for="Nombre">Nombre:</label>
+                <input type="text" name="Nombre" id="Nombre" />
+            </div>
+            <div>
+                <label for="Apellido">Apellido:</label>
+                <input type="text" name="Apellido" id="Apellido" />
+            </div>
+            <div>
+                <label for="CorreoElectronico">Correo Electrónico:</label>
+                <input type="text" name="CorreoElectronico" id="CorreoElectronico" />
+            </div>
+            <div>
+                <label for="Contraseña">Contraseña:</label>
+                <input type="password" name="Contraseña" id="Contraseña" />
+            </div>
+            <br />
+            <input type="submit" value="Registrar" />
+        }
+
+        <div>
+            <a href="@Url.Action("Login", "Home")">Volver al inicio de sesión</a>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            // Efecto de desvanecimiento al cargar la página
+            $(".registro-container").hide().fadeIn(1000);
+
+            // Efecto de resaltado al enfocar un campo de entrada
+            $("input[type=text], input[type=password]").focus(function() {
+                $(this).effect("highlight", {color: "#f6eafd"}, 500);
+            });
+
+            // Efecto de sacudida al enviar el formulario con campos vacíos
+            $("form").submit(function(e) {
+                var nombre = $("#Nombre").val();
+                var apellido = $("#Apellido").val();
+                var correo = $("#CorreoElectronico").val();
+                var contraseña = $("#Contraseña").val();
+                if (nombre == "" || apellido == "" || correo == "" || contraseña == "") {
+                    e.preventDefault();
+                    $(".registro-container").effect("shake", {distance: 10}, 500);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
